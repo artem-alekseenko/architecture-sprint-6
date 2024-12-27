@@ -1,0 +1,37 @@
+# ========== Типы (Entities) ==========
+
+type Client {
+  id: ID!
+  name: String
+  age: Int
+
+  # Подзапросы (GraphQL Resolvers):
+  documents: [Document]
+  relatives: [Relative]
+}
+
+type Document {
+  id: ID!
+  type: String
+  number: String
+  issueDate: String
+  expiryDate: String
+}
+
+type Relative {
+  id: ID!
+  relationType: String
+  name: String
+  age: Int
+}
+
+# ========== Запросы (Query) ==========
+
+type Query {
+  """
+  Возвращает информацию о клиенте по его ID.
+  Внутри Client можно запросить поля documents и relatives,
+  заменяя тем самым /clients/{id}/documents и /clients/{id}/relatives.
+  """
+  client(id: ID!): Client
+}
